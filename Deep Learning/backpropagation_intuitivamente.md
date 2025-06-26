@@ -65,3 +65,6 @@ Partiamo considerando un singolo esempio: un 2. Che effetto dovrebbe avere quest
     - i desideri (variazioni dei pesi, bias e attivazioni precedenti) di tutti i neuroni del livello di output vengono sommate insieme per produrre il **vettore di variazioni finali desiderate dal penultimo livello** (simile a punto 1 ma per un livello nascosto)
     - una volta ottenuto il vettore di variazioni finali desiderate dal penultimo livello, possiamo **riapplicare ricorsivamente lo stesso procedimento** per ottenere il vettore di variazioni finali del livello prima ancora 
     - è in questo senso che l'algoritmo **propaga all'indietro**, si parte dalle variazioni desiderate dall'ultimo livello e mano a mano di ottengono le variazioni desiderata dai livelli precedenti
+
+
+    // aggiungi immagini, minuto 8:27
