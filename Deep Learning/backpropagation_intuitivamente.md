@@ -39,7 +39,6 @@ questo è un algoritmo che permette di computare il gradiente citato sopra (pass
 
 Partiamo considerando un singolo esempio: un 2. Che effetto dovrebbe avere questo 2 sui pesi e bias della rete?
 
-
 1. Concentriamoci inizalmente sul livello di output: **la variazione delle attivazioni dell'ultimo livello dovrebbe essere proporziale a quanto questi valori si discostano dal loro valore obiettivo**
     - se un attivazione è vicina al suo obiettivo va variata di poco; va variata invece di tanto altrimenti
     - es. Incrementare l'attivazione del neurone 2 è più importante rispetto a diminuire l'attivazione del neurone 8
@@ -66,5 +65,19 @@ Partiamo considerando un singolo esempio: un 2. Che effetto dovrebbe avere quest
     - una volta ottenuto il vettore di variazioni finali desiderate dal penultimo livello, possiamo **riapplicare ricorsivamente lo stesso procedimento** per ottenere il vettore di variazioni finali del livello prima ancora 
     - è in questo senso che l'algoritmo **propaga all'indietro**, si parte dalle variazioni desiderate dall'ultimo livello e mano a mano di ottengono le variazioni desiderata dai livelli precedenti
 
+![alt text](img/come_variare_tutte_le_attivazioni.png)
 
-    // aggiungi immagini, minuto 8:27
+4. Quanto detto fino ad ora considera solo un singolo esempio di training, se considerassimo solamente questo esempio, la rete diventerebbe brava a classificare solamente dei due.
+    - quello che succede è che si ripete lo stato procedimento di backpropagation per ogni esempio di training
+    - in questa maniera otteniamo il vettore di variazione dei pesi e bias desiderato da ogni esempio
+    - ottenuti questi vettori, la variazione finale effettiva dei pesi viene effettuata facendo una media
+        - questa variazione effettiva è, a tutti gli effetti, il gradiente negativo della funzione di errore
+    - in questa maniera la rete diventa un po' più brava a classificare tutti i possibili output  
+
+5. A questo punto si tratta di iterare fino a che non si converge in un minimo locale
+
+### Stocastic gradient descent
+Siccome considerare tutti gli esempi del training set per ogni singolo passo di discesa del gradiente è troppo computazionalmente costoso, cio che si fa nella pratica è considerare per ogni passo solamente un sottoinsieme del training set.
+- in questa maniera non si effettua il passo che causa precisamente la diminuzione più ripida dell'errore
+    - il gradiente della funzione dipende da tutti gli esempi
+- stiamo però facendo una buona approssimazione computazionalmente fattibile
