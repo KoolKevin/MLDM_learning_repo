@@ -1,5 +1,6 @@
 ### Funzione di errore
-L'errore di un singolo esempio è dato dalla differenza tra vettore delle uscite desiderate, con il vettore dell'uscita corrente della rete con l'esempio fornito in ingresso
+L'errore di un singolo esempio e dato dalla somma di varie componenti. Le singole componenti che vengono sommato sono dal quadrato della differenze delle componenti vettore dell'uscita corrente della rete con il vettore delle uscite desiderate dell'esempio fornito in ingresso
+- quadrato per far si che l'errore sia sempre positivo
 
 ![alt text](img/errore_singolo_esempio.png)
 
@@ -24,7 +25,7 @@ Facendo la discesa del gradiente di questa funzione di errore, otteniamo un vett
 
 In altri termini, il valore assoluto di ogni componente del gradiente ci dice quanto la funzione di errore è sensibile rispetto alle variazioni di ogni singolo peso e bias (vettore delle derivate parziali)    
 - se una componente ha valore assoluto alto, piccole variazioni di quel peso/bias produrranno grandi variazioni dell'errore
-- se una componente ha valore assolto basso, grandi variazioni di quel peso/bias produrranno modeste variazioni dell'errore
+- se una componente ha valore assoluto basso, grandi variazioni di quel peso/bias produrranno modeste variazioni dell'errore
 - **derivata parziale alta === velocità di variazione alta** e viceversa
 
 ![alt text](img/interpretazione_gradiente.png)
@@ -50,8 +51,8 @@ Partiamo considerando un singolo esempio: un 2. Che effetto dovrebbe avere quest
     - L'attivazione di un neurone dipende da una somma pesata di tutte le attivazioni del livello precedente, sommato a un bias, il tutto dato in pasto ad una funzione attivazione (sigmoid, ReLU, ...)
     - Abbiamo quindi tre opzioni per aumentare/diminuire l'attivazione del nostro neurone in uscita
         - incrementare i pesi del neurone in uscita
-            - in questo caso notiamo che i pesi hanno capacità diverse variare l'attivazione del neurone di uscita
-            - **i pesi corrispondenti ad attivazioni del livello precedente grandi in valore assoluto hanno un'influenza maggiore** rispetto a quelli relativi ad attivazioni più piccole
+            - in questo caso notiamo che i pesi hanno capacità diverse di variare l'attivazione del neurone di uscita
+            - **i pesi corrispondenti ad attivazioni del livello precedente grandi in valore assoluto, hanno un'influenza maggiore** rispetto a quelli relativi ad attivazioni più piccole
         - incrementare il bias del neurone in uscita
         - modificare le attivazioni del livello precedente
             - se le attivazioni del livello precedente che hanno un peso positivo vengono incrementate e/o quello che hanno un peso negativo vengono diminuite, allora l'attivazione del neurone in uscita sale
