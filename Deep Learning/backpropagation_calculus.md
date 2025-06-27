@@ -119,3 +119,60 @@ La derivata rispetto all'attivazione precedente corrisponde al peso corrente
 ## Generalizzazione a layer con più neuroni
 
 ### Notazione
+come scriviamo in maniera compatta le attivazioni di un livello dati i pesi e bias e le attivazioni del livello precedente?
+
+1. prendiamo le attivazioni del livello precedente e organizziamole in un vettore colonna
+    - a_0^(1)
+    - pedice rappresenta l'indice del neurone preso in considerazione all'interno del livello
+    - l'apice rappresenta il livello a cui appartiene il neurone
+2. organizziamo i pesi in una matrice
+    - tutti i pesi tra due livelli fanno riferimento al livello delle attivazioni in uscita; indichiamo con una apice il livello a cui i pesi fanno riferimento
+        - w^(L)
+    - ogni riga della matrice rappresenta i pesi relativi alle connesioni tra tutti i neuroni del livello precedente e un singolo neurone in uscita
+    - una riga potrebbe essere  w^(1)_00, w^(1)_01, ..., w^(1)_0n; con n neuroni nel livello precedente 
+        - 0 = indice del neurone in uscita
+        - 1 = indice del neurone del livello precedente 
+    - matrice di k righe se k sono i neuroni del livello di uscita
+3. la somma pesata delle attivazioni del livello precedente con i pesi del livello corrente è data dal prodotto matriciale della matrice dei pesi per il vettore delle attivazioni precedenti
+4. ogni neurone del livello di uscita ha poi anche un bias che rappresentiamo con bi
+    - con i indice del neurone in uscita a cui appartiene il bias
+5. l'attivazione finale di tutti i neuroni in uscita è a sua volta un vettore le cui componenti sono date dal vettore risultante da prodotto matriciale sommato al vettore dei bias; tutte le componenti di questo vettore sono poi date in paso alla funzione di attivazione
+
+![alt text](img/matrice_dei_pesi.png)
+
+![alt text](img/formula_compatta_attivazione.png)
+
+
+
+
+
+### Neuroni multipli
+adesso l'attivazione di un layer diventa un vettore, in cui ogni componente rappresenta l'attivazione di un neurone all'interno del livello.
+- indichiamo con pedice j l'attivazione del j-esimo neurone nel livello di uscita
+- indichiamo con pedice k l'attivazione del k-esimo neurone nel livello precedente
+
+anche l'output desiderato diventa un vettore (grande quanto il livello di uscita), di conseguenza **l'errore diventa una somma degli errori tra tutte le componenti del vettore delle attivazioni in uscita corrente con il vettore delle attivazioni desiderate**
+
+![alt text](img/errore_con_livelli_multineurone.png)
+
+indicizziamo i pesi come spiegato sopra e diamo anche un nome alla somma pesata relativa ad un j-esimo neurone nel livello di uscita z^(L). L'attivazione del j-esimo neurone diventa semplicemente la somma pesata data in pasto alla funzione di attivazione.
+
+![alt text](img/formula_attivazione_con_livelli_multineurone.png)
+
+A questo punto la derivata della funzione di errore rispetto ad un determinato peso/bias ha la stessa forma che abbiamo visto prima data dalla chain-rule. Solamente che adesso abbiamo dei vettori (e una matrice di pesi) al posto di singoli valori che possiamo variare.  
+
+![alt text](img/chain_rule_multineurone.png)
+
+
+
+**NB**: La derivata della funzione di errore rispetto ad **una delle attivazioni del livello precedente** è però leggermente diversa in questo caso.
+
+In questo caso la variazione di attivazione di un neurone precedente **influenza la funzione di errore attraverso percorsi multipli**, l'attivazione è infatti collegata a tutti i neuroni del livello di uscita.
+
+In questo caso bisogna quindi considerare la somma di tutte le variazioni della funzione di errore ottenuta tenendo conto di tutti i neuroni del livello di uscita
+- ricorda che la funzione di errore è definita in questo caso come una sommatore di differenze in cui sono presenti tutte le attivazioni del livello di uscita influenzate dall'attivazione del livello precedente modificata
+
+![alt text](img/chain_rule_multineurone_caso_attivazione_precedente.png)
+
+
+A questo punto di nuovo si propaga ricorsivamente all'indietro e si riapplicano gli stessi passaggi.
